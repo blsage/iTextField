@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-@available(iOS 14.0, *)
+@available(iOS 13.0, *)
 struct TextFieldView: UIViewRepresentable {
     
     var placeholder: String
@@ -150,7 +150,7 @@ struct TextFieldView: UIViewRepresentable {
     
 }
 
-@available(iOS 14.0, *)
+@available(iOS 13.0, *)
 extension TextFieldView {
     func font(_ font: UIFont?) -> TextFieldView {
         var view = self
@@ -158,6 +158,7 @@ extension TextFieldView {
         return view
     }
     
+    @available(iOS 14, *)
     func foregroundColor(_ color: Color?) -> TextFieldView {
         var view = self
         if let color = color {
@@ -165,12 +166,25 @@ extension TextFieldView {
         }
         return view
     }
-    
+
+    @available(iOS 14, *)
     func accentColor(_ accentColor: Color?) -> TextFieldView {
         var view = self
         if let accentColor = accentColor {
             view.accentColor = UIColor(accentColor)
         }
+        return view
+    }
+
+    func foregroundColor(_ color: UIColor?) -> TextFieldView {
+        var view = self
+        view.foregroundColor = color
+        return view
+    }
+
+    func accentColor(_ accentColor: UIColor?) -> TextFieldView {
+        var view = self
+        view.accentColor = accentColor
         return view
     }
     

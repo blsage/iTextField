@@ -1,7 +1,6 @@
 import XCTest
 @testable import TextFieldView
 
-@available(iOS 14.0, *)
 final class TextFieldViewTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
