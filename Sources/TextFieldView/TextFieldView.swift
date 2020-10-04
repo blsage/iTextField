@@ -2,6 +2,8 @@ import SwiftUI
 import UIKit
 
 @available(iOS 13.0, *)
+/// A view representable wrapper around the `UITextField`, harnessing its fully functionality,
+/// that can be used using entirely SwiftUI like an ordinary `TextField`
 struct TextFieldView: UIViewRepresentable {
     
     var placeholder: String
@@ -29,6 +31,14 @@ struct TextFieldView: UIViewRepresentable {
     
     @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
     
+    /// Initializes the text field with the required parameters
+    /// - Parameters:
+    ///   - placeholder: The text to display in the text field when nothing has been inputted
+    ///   - text: A binding to the text `String` to be edited by the text field
+    ///   - isEditing: A binding to a `Bool` indicating whether the text field is being edited
+    ///   - didBeginEditing: A function called when text editing begins
+    ///   - didChange: A function called when the user makes any changes to the text in the text field
+    ///   - didEndEditing: A function called when text editing ends
     init(_ placeholder: String,
          text: Binding<String>,
          isEditing: Binding<Bool>,
@@ -152,12 +162,19 @@ struct TextFieldView: UIViewRepresentable {
 
 @available(iOS 13.0, *)
 extension TextFieldView {
+    /// Modifies the text field’s font
+    /// - Parameter font: The desired font
+    /// - Returns: An updated text field using the desired font
+    /// - Warning: Accepts a `UIFont` object rather than SwiftUI `Font`
     func font(_ font: UIFont?) -> TextFieldView {
         var view = self
         view.font = font
         return view
     }
     
+    /// Modifies the text field text color
+    /// - Parameter color: The desired text color
+    /// - Returns: An updated text field using the desired text color
     @available(iOS 14, *)
     func foregroundColor(_ color: Color?) -> TextFieldView {
         var view = self
@@ -166,7 +183,10 @@ extension TextFieldView {
         }
         return view
     }
-
+    
+    /// Modifies the text field’s cursor and highlight color
+    /// - Parameter accentColor: The desired accent color
+    /// - Returns: An updated text field using the desired accent color
     @available(iOS 14, *)
     func accentColor(_ accentColor: Color?) -> TextFieldView {
         var view = self
@@ -175,19 +195,30 @@ extension TextFieldView {
         }
         return view
     }
-
+    
+    /// Modifies the text field’s text color
+    /// - Parameter color: The desired text color
+    /// - Returns: An updated text field using the desired text color
+    /// - Warning: Uses UIKit's `UIColor` rather than SwiftUI's `Color`
     func foregroundColor(_ color: UIColor?) -> TextFieldView {
         var view = self
         view.foregroundColor = color
         return view
     }
-
+    
+    /// Modifies the text field’s cursor and highlight color
+    /// - Parameter accentColor: The desired accent color
+    /// - Returns: And updated text field using the desired accent color
+    /// - Warning: Uses UIKit's `UIColor` rather than SwiftUI's `Color`
     func accentColor(_ accentColor: UIColor?) -> TextFieldView {
         var view = self
         view.accentColor = accentColor
         return view
     }
     
+    /// Modifies the text field’s text alignment
+    /// - Parameter alignment: The desired text alignment
+    /// - Returns: An updated text field using the desired text alignment
     func multilineTextAlignment(_ alignment: TextAlignment) -> TextFieldView {
         var view = self
         switch alignment {
@@ -201,12 +232,18 @@ extension TextFieldView {
         return view
     }
     
+    /// Modifies the text field’s text content type
+    /// - Parameter textContentType: The type of text being inputted into the text field
+    /// - Returns: An updated text field using the desired text content type
     func textContentType(_ textContentType: UITextContentType?) -> TextFieldView {
         var view = self
         view.contentType = textContentType
         return view
     }
     
+    /// Modifies the text field’s autocorrection settings
+    /// - Parameter disable: Whether autocorrection should be disabled
+    /// - Returns: An updated text field using the desired autocorrection settings
     func disableAutocorrection(_ disable: Bool?) -> TextFieldView {
         var view = self
         if let disable = disable {
@@ -217,36 +254,54 @@ extension TextFieldView {
         return view
     }
     
+    /// Modifies the text field’s autocapitalization style
+    /// - Parameter style: What types of characters should be autocapitalized
+    /// - Returns: An updated text field using the desired autocapitalization style
     func autocapitalization(_ style: UITextAutocapitalizationType) -> TextFieldView {
         var view = self
         view.autocapitalization = style
         return view
     }
     
+    /// Modifies the text field’s keyboard type
+    /// - Parameter type: The type of keyboard that the user should get to type in the text field
+    /// - Returns: An updated text field using the desired keyboard type
     func keyboardType(_ type: UIKeyboardType) -> TextFieldView {
         var view = self
         view.keyboardType = type
         return view
     }
     
+    /// Modifies the text field’s return key type
+    /// - Parameter type: The type of return key the user should get on the keyboard when using this text field
+    /// - Returns: An updated text field using the desired return key type
     func returnKeyType(_ type: UIReturnKeyType) -> TextFieldView {
         var view = self
         view.returnKeyType = type
         return view
     }
     
+    /// Modifies the text field’s secure entry settings
+    /// - Parameter isSecure: Whether the text field should hide the entered characters as dots
+    /// - Returns: An updated text field using the desired secure entry settings
     func isSecure(_ isSecure: Bool) -> TextFieldView {
         var view = self
         view.isSecure = isSecure
         return view
     }
     
+    /// Modifies the text field’s clear-on-begin-editing settings
+    /// - Parameter shouldClear: Whether the text field should clear when the user begins editing
+    /// - Returns: An updated text field using the desired clear-on-begin-editing settings
     func clearsOnBeginEditing(_ shouldClear: Bool) -> TextFieldView {
         var view = self
         view.clearsOnBeginEditing = shouldClear
         return view
     }
     
+    /// Modifies the text field’s editing disabled settings
+    /// - Parameter disabled: Whether the text field should be disabled to user input
+    /// - Returns: An updated text field using the desired disabled settings
     func disabled(_ disabled: Bool) -> TextFieldView {
         var view = self
         view.isUserInteractionEnabled = disabled
