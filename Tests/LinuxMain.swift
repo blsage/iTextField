@@ -1,7 +1,7 @@
 import XCTest
 
-import TextFieldViewTests
+import iTextFieldTests
 
 var tests = [XCTestCaseEntry]()
-tests += TextFieldViewTests.allTests()
+tests += iTextFieldTests.allTests()
 XCTMain(tests)

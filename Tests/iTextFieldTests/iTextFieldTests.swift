@@ -1,12 +1,12 @@
 import XCTest
-@testable import TextFieldView
+@testable import iTextField
 
-final class TextFieldViewTests: XCTestCase {
+final class iTextFieldTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-//        XCTAssertEqual(TextFieldView().text, "Hello, World!")
+//        XCTAssertEqual(iTextField().text, "Hello, World!")
     }
 
     static var allTests = [
