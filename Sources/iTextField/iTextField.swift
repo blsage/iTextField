@@ -304,7 +304,7 @@ extension iTextField {
     /// - Returns: An updated text field using the desired disabled settings
     public func disabled(_ disabled: Bool) -> iTextField {
         var view = self
-        view.isUserInteractionEnabled = disabled
+        view.isUserInteractionEnabled = !disabled
         return view
     }
 }
