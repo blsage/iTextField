@@ -195,27 +195,7 @@ extension iTextField {
         }
         return view
     }
-    
-    /// Modifies the text field’s text color
-    /// - Parameter color: The desired text color
-    /// - Returns: An updated text field using the desired text color
-    /// - Warning: Uses UIKit's `UIColor` rather than SwiftUI's `Color`
-    public func foregroundColor(_ color: UIColor?) -> iTextField {
-        var view = self
-        view.foregroundColor = color
-        return view
-    }
-    
-    /// Modifies the text field’s cursor and highlight color
-    /// - Parameter accentColor: The desired accent color
-    /// - Returns: And updated text field using the desired accent color
-    /// - Warning: Uses UIKit's `UIColor` rather than SwiftUI's `Color`
-    public func accentColor(_ accentColor: UIColor?) -> iTextField {
-        var view = self
-        view.accentColor = accentColor
-        return view
-    }
-    
+        
     /// Modifies the text field’s text alignment
     /// - Parameter alignment: The desired text alignment
     /// - Returns: An updated text field using the desired text alignment
