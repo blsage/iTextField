@@ -175,11 +175,11 @@ extension iTextField {
     /// Modifies the text field text color
     /// - Parameter color: The desired text color
     /// - Returns: An updated text field using the desired text color
-    @available(iOS 14, *)
+    @available(iOS 13, *)
     public func foregroundColor(_ color: Color?) -> iTextField {
         var view = self
         if let color = color {
-            view.foregroundColor = UIColor(color)
+            view.foregroundColor = UIColor.from(color: color)
         }
         return view
     }
@@ -187,37 +187,15 @@ extension iTextField {
     /// Modifies the text field’s cursor and highlight color
     /// - Parameter accentColor: The desired accent color
     /// - Returns: An updated text field using the desired accent color
-    @available(iOS 14, *)
+    @available(iOS 13, *)
     public func accentColor(_ accentColor: Color?) -> iTextField {
         var view = self
         if let accentColor = accentColor {
-            view.accentColor = UIColor(accentColor)
+            view.accentColor = UIColor.from(color: accentColor)
         }
         return view
     }
-    
-    /// Modifies the text field’s text color
-    /// - Parameter color: The desired text color
-    /// - Returns: An updated text field using the desired text color
-    /// - Warning: Uses UIKit's `UIColor` rather than SwiftUI's `Color`
-    @available(iOS, introduced: 13, obsoleted: 14)
-    public func foregroundColor(_ color: UIColor?) -> iTextField {
-        var view = self
-        view.foregroundColor = color
-        return view
-    }
-    
-    /// Modifies the text field’s cursor and highlight color
-    /// - Parameter accentColor: The desired accent color
-    /// - Returns: And updated text field using the desired accent color
-    /// - Warning: Uses UIKit's `UIColor` rather than SwiftUI's `Color
-    @available(iOS, introduced: 13, obsoleted: 14)
-    public func accentColor(_ accentColor: UIColor?) -> iTextField {
-        var view = self
-        view.accentColor = accentColor
-        return view
-    }
-    
+        
     /// Modifies the text field’s text alignment
     /// - Parameter alignment: The desired text alignment
     /// - Returns: An updated text field using the desired text alignment
@@ -337,5 +315,28 @@ extension iTextField {
         var view = self
         view.didEndEditing = action
         return view
+    }
+}
+
+@available(iOS 13, *)
+fileprivate extension UIColor {
+    class func from(color: Color) -> UIColor {
+        if #available(iOS 14, *) {
+            return UIColor(color)
+        } else {
+            let scanner = Scanner(string: color.description.trimmingCharacters(in: CharacterSet.alphanumerics.inverted))
+            var hexNumber: UInt64 = 0
+            var r: CGFloat = 0.0, g: CGFloat = 0.0, b: CGFloat = 0.0, a: CGFloat = 0.0
+            
+            let result = scanner.scanHexInt64(&hexNumber)
+            if result {
+                r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+                g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+                b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+                a = CGFloat(hexNumber & 0x000000ff) / 255
+            }
+            
+            return UIColor(red: r, green: g, blue: b, alpha: a)
+        }
     }
 }
