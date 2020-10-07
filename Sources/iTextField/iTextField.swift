@@ -166,7 +166,7 @@ extension iTextField {
     /// - Parameter font: The desired font
     /// - Returns: An updated text field using the desired font
     /// - Warning: Accepts a `UIFont` object rather than SwiftUI `Font`
-    public func font(_ font: UIFont?) -> iTextField {
+    public func uiFont(_ font: UIFont?) -> iTextField {
         var view = self
         view.font = font
         return view
@@ -316,6 +316,9 @@ extension iTextField {
         view.didEndEditing = action
         return view
     }
+    
+    @available(*, deprecated, renamed: "uiFont", message: "At this time, Apple will not let us parse a `Font` object!")
+    public func font(_ font: Font?) -> some View { return EmptyView() }
 }
 
 @available(iOS 13, *)
