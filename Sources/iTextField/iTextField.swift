@@ -162,7 +162,7 @@ public struct iTextField: UIViewRepresentable {
 
 @available(iOS 13.0, *)
 extension iTextField {
-    /// Modifies the text field’s font from a `UIFont` object
+    /// Modifies the text field’s font from a `UIFont` object.
     /// - Parameter font: The desired font
     /// - Returns: An updated text field using the desired font
     /// - Warning: Accepts a `UIFont` object rather than SwiftUI `Font`
@@ -173,7 +173,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field text color
+    /// Modifies the text field text color.
     /// - Parameter color: The desired text color
     /// - Returns: An updated text field using the desired text color
     @available(iOS 13, *)
@@ -185,7 +185,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field’s cursor and highlight color
+    /// Modifies the text field’s cursor and highlight color.
     /// - Parameter accentColor: The desired accent color
     /// - Returns: An updated text field using the desired accent color
     @available(iOS 13, *)
@@ -197,7 +197,7 @@ extension iTextField {
         return view
     }
         
-    /// Modifies the text field’s text alignment
+    /// Modifies the text field’s text alignment.
     /// - Parameter alignment: The desired text alignment
     /// - Returns: An updated text field using the desired text alignment
     public func multilineTextAlignment(_ alignment: TextAlignment) -> iTextField {
@@ -213,7 +213,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field’s text content type
+    /// Modifies the text field’s text content type.
     /// - Parameter textContentType: The type of text being inputted into the text field
     /// - Returns: An updated text field using the desired text content type
     public func textContentType(_ textContentType: UITextContentType?) -> iTextField {
@@ -222,7 +222,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field’s autocorrection settings
+    /// Modifies the text field’s autocorrection settings.
     /// - Parameter disable: Whether autocorrection should be disabled
     /// - Returns: An updated text field using the desired autocorrection settings
     public func disableAutocorrection(_ disable: Bool?) -> iTextField {
@@ -235,7 +235,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field’s autocapitalization style
+    /// Modifies the text field’s autocapitalization style.
     /// - Parameter style: What types of characters should be autocapitalized
     /// - Returns: An updated text field using the desired autocapitalization style
     public func autocapitalization(_ style: UITextAutocapitalizationType) -> iTextField {
@@ -244,7 +244,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field’s keyboard type
+    /// Modifies the text field’s keyboard type.
     /// - Parameter type: The type of keyboard that the user should get to type in the text field
     /// - Returns: An updated text field using the desired keyboard type
     public func keyboardType(_ type: UIKeyboardType) -> iTextField {
@@ -253,7 +253,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field’s return key type
+    /// Modifies the text field’s return key type.
     /// - Parameter type: The type of return key the user should get on the keyboard when using this text field
     /// - Returns: An updated text field using the desired return key type
     public func returnKeyType(_ type: UIReturnKeyType) -> iTextField {
@@ -262,7 +262,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field’s secure entry settings
+    /// Modifies the text field’s secure entry settings.
     /// - Parameter isSecure: Whether the text field should hide the entered characters as dots
     /// - Returns: An updated text field using the desired secure entry settings
     public func isSecure(_ isSecure: Bool) -> iTextField {
@@ -271,7 +271,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field’s clear-on-begin-editing settings
+    /// Modifies the text field’s clear-on-begin-editing settings.
     /// - Parameter shouldClear: Whether the text field should clear when the user begins editing
     /// - Returns: An updated text field using the desired clear-on-begin-editing settings
     public func clearsOnBeginEditing(_ shouldClear: Bool) -> iTextField {
@@ -280,7 +280,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the text field’s editing disabled settings
+    /// Modifies the text field’s editing disabled settings.
     /// - Parameter disabled: Whether the text field should be disabled to user input
     /// - Returns: An updated text field using the desired disabled settings
     public func disabled(_ disabled: Bool) -> iTextField {
@@ -289,7 +289,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the function called when text editing begins
+    /// Modifies the function called when text editing begins.
     /// - Parameter action: The function called when text editing begins
     /// - Returns: An updated text field using the desired function called when text editing begins
     public func onEditingBegan(_ action: @escaping () -> Void) -> iTextField {
@@ -299,7 +299,7 @@ extension iTextField {
         
     }
     
-    /// Modifies the function called when the user makes any changes to the text in the text field
+    /// Modifies the function called when the user makes any changes to the text in the text field.
     /// - Parameter action: The function called when the user makes any changes to the text in the text field
     /// - Returns: An updated text field using the desired function called when the user makes any changes to the text in the text field
     public func onEdit(_ action: @escaping () -> Void) -> iTextField {
@@ -309,7 +309,7 @@ extension iTextField {
         
     }
     
-    /// Modifies the function called when text editing ends
+    /// Modifies the function called when text editing ends.
     /// - Parameter action: The function called when text editing ends
     /// - Returns: An updated text field using the desired function called when text editing ends
     public func onEditingEnded(_ action: @escaping () -> Void) -> iTextField {
@@ -318,7 +318,7 @@ extension iTextField {
         return view
     }
     
-    /// As we have no way at this time to parse a `Font` object, this function must be deprecated. Use `.uiFont(_:)` instead.
+    /// Since gives us no way at this time to parse a `Font` object, this function has to be deprecated. Please use `.fontFromUIFont(_:)` instead.
     /// - Parameter font:
     /// - Returns:
     @available(*, deprecated, renamed: "uiFont", message: "At this time, Apple will not let us parse a `Font` object!")
