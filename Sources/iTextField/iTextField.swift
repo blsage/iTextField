@@ -167,7 +167,7 @@ extension iTextField {
     /// - Returns: An updated text field using the desired font
     /// - Warning: Accepts a `UIFont` object rather than SwiftUI `Font`
     /// - SeeAlso: [`UIFont`](https://developer.apple.com/documentation/uikit/uifont)
-    public func uiFont(_ font: UIFont?) -> iTextField {
+    public func fontFromUIFont(_ font: UIFont?) -> iTextField {
         var view = self
         view.font = font
         return view
