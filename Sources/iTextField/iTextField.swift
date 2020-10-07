@@ -318,10 +318,10 @@ extension iTextField {
         return view
     }
     
-    /// Since Apple has not given us a way yet to parse a `Font` object, this function has to be deprecated. Please use `.fontFromUIFont(_:)` instead.
+    /// Since Apple has not given us a way yet to parse a `Font`🔠  object, this function must be deprecated😔. Please use `.fontFromUIFont(_:)` instead.
     /// - Parameter font:
     /// - Returns:
-    @available(*, deprecated, renamed: "fontFromUIFont", message: "At this time, Apple will not let us parse a `Font` object!")
+    @available(*, deprecated, renamed: "fontFromUIFont", message: "At this time, Apple will not let us parse a `Font` object❗️")
     public func font(_ font: Font?) -> some View { return EmptyView() }
 }
 
