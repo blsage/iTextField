@@ -40,18 +40,12 @@ public struct iTextField: UIViewRepresentable {
     ///   - didChange: A function called when the user makes any changes to the text in the text field
     ///   - didEndEditing: A function called when text editing ends
     public init(_ placeholder: String,
-         text: Binding<String>,
-         isEditing: Binding<Bool>,
-         didBeginEditing: @escaping () -> Void = { },
-         didChange: @escaping () -> Void = { },
-         didEndEditing: @escaping () -> Void = { })
+                text: Binding<String>,
+                isEditing: Binding<Bool>)
     {
         self.placeholder = placeholder
         self._text = text
         self._isEditing = isEditing
-        self.didBeginEditing = didBeginEditing
-        self.didChange = didChange
-        self.didEndEditing = didEndEditing
     }
     
     public func makeUIView(context: Context) -> UITextField {
@@ -108,7 +102,7 @@ public struct iTextField: UIViewRepresentable {
     public func makeCoordinator() -> Coordinator {
         return Coordinator(text: $text,
                            isEditing: $isEditing,
-                           didBeginEditing: didEndEditing,
+                           didBeginEditing: didBeginEditing,
                            didChange: didChange,
                            didEndEditing: didEndEditing)
     }
@@ -130,25 +124,31 @@ public struct iTextField: UIViewRepresentable {
         }
         
         public func textFieldDidBeginEditing(_ textField: UITextField) {
-            DispatchQueue.main.async {
-                if !self.isEditing {
-                    self.isEditing = true
+            DispatchQueue.main.async { [self] in
+                if !isEditing {
+                    isEditing = true
                 }
-                self.didEndEditing()
+                if textField.clearsOnBeginEditing {
+                    text = ""
+                }
+                didBeginEditing()
+                print("began?")
             }
         }
         
         @objc func textFieldDidChange(_ textField: UITextField) {
             text = textField.text ?? ""
             didChange()
+            print("changed")
         }
         
         public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-            DispatchQueue.main.async {
-                if self.isEditing {
-                    self.isEditing = false
+            DispatchQueue.main.async { [self] in
+                if isEditing {
+                    isEditing = false
                 }
-                self.didEndEditing()
+                didEndEditing()
+                print("ended")
             }
         }
         
@@ -195,7 +195,29 @@ extension iTextField {
         }
         return view
     }
-        
+    
+    /// Modifies the text field’s text color
+    /// - Parameter color: The desired text color
+    /// - Returns: An updated text field using the desired text color
+    /// - Warning: Uses UIKit's `UIColor` rather than SwiftUI's `Color`
+    @available(iOS, introduced: 13, obsoleted: 14)
+    public func foregroundColor(_ color: UIColor?) -> iTextField {
+        var view = self
+        view.foregroundColor = color
+        return view
+    }
+    
+    /// Modifies the text field’s cursor and highlight color
+    /// - Parameter accentColor: The desired accent color
+    /// - Returns: And updated text field using the desired accent color
+    /// - Warning: Uses UIKit's `UIColor` rather than SwiftUI's `Color
+    @available(iOS, introduced: 13, obsoleted: 14)
+    public func accentColor(_ accentColor: UIColor?) -> iTextField {
+        var view = self
+        view.accentColor = accentColor
+        return view
+    }
+    
     /// Modifies the text field’s text alignment
     /// - Parameter alignment: The desired text alignment
     /// - Returns: An updated text field using the desired text alignment
@@ -285,6 +307,35 @@ extension iTextField {
     public func disabled(_ disabled: Bool) -> iTextField {
         var view = self
         view.isUserInteractionEnabled = !disabled
+        return view
+    }
+    
+    /// Modifies the function called when text editing begins
+    /// - Parameter action: The function called when text editing begins
+    /// - Returns: An updated text field using the desired function called when text editing begins
+    public func onEditingBegan(_ action: @escaping () -> Void) -> iTextField {
+        var view = self
+        view.didBeginEditing = action
+        return view
+        
+    }
+    
+    /// Modifies the function called when the user makes any changes to the text in the text field
+    /// - Parameter action: The function called when the user makes any changes to the text in the text field
+    /// - Returns: An updated text field using the desired function called when the user makes any changes to the text in the text field
+    public func onEdit(_ action: @escaping () -> Void) -> iTextField {
+        var view = self
+        view.didChange = action
+        return view
+        
+    }
+    
+    /// Modifies the function called when text editing ends
+    /// - Parameter action: The function called when text editing ends
+    /// - Returns: An updated text field using the desired function called when text editing ends
+    public func onEditingEnded(_ action: @escaping () -> Void) -> iTextField {
+        var view = self
+        view.didEndEditing = action
         return view
     }
 }
