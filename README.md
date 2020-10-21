@@ -1,6 +1,6 @@
 # iTextField
 
-Fully-wrapped UIKit text field 💪 that you can use entirely in SwiftUI.
+A fully-wrapped `UITextField` that works entirely in SwiftUI
 
 1. Install `iTextField`
 2. Add `iTextField` to your project
@@ -8,6 +8,7 @@ Fully-wrapped UIKit text field 💪 that you can use entirely in SwiftUI.
 import SwiftUI
 import iTextField
 
+<<<<<<< HEAD
 struct ContentView: View {
     @State var text: String = ""
     @State var isEditing: Bool = false
