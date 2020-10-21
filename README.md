@@ -1,6 +1,6 @@
 # iTextField
 
-The fully functional SwiftUI text field that you wish came natively.
+A fully-wrapped `UITextField` that works entirely in SwiftUI
 
 
 Highlights:
