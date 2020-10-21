@@ -159,7 +159,7 @@ public struct iTextField: UIViewRepresentable {
 
 @available(iOS 13.0, *)
 extension iTextField {
-    /// Modifies the text field’s font from a `UIFont` object. 🔠🔡
+    /// Modifies the text field’s **font** from a `UIFont` object. 🔠🔡
     /// - Parameter font: The desired font 🅰️🆗
     /// - Returns: An updated text field using the desired font 💬
     /// - Warning: ⚠️ Accepts a `UIFont` object rather than SwiftUI `Font` ⚠️
