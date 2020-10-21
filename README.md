@@ -8,7 +8,6 @@ A fully-wrapped `UITextField` that works entirely in SwiftUI
 import SwiftUI
 import iTextField
 
-<<<<<<< HEAD
 struct ContentView: View {
     @State var text: String = ""
     @State var isEditing: Bool = false
