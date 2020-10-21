@@ -62,4 +62,6 @@ Use this exhaustive input list to customize your text field.
 
 Modifier | Description
 --- | ---
-`.fontFromUIFont(font: UIFont?) -> iTextField` | Modifies the text field’s **font** from a `UIFont` object. 🔠🔡
+```swift
+.fontFromUIFont(font: UIFont?) -> iTextField
+``` | Modifies the text field’s **font** from a `UIFont` object. 🔠🔡
