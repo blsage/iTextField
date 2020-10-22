@@ -4,7 +4,7 @@
 
 <img src="Demo/iTextFieldDemo1Light.gif" alt="drawing" width="250"/>
 
-1. [Install](https://github.com/benjaminsage/iTextField/blob/main/INSTALL.md) `iTextField`
+1. [Install](https://github.com/benjaminsage/iTextField/blob/master/INSTALL.md) `iTextField`
 2. Add `iTextField` to your project
 ```swift
 import SwiftUI
