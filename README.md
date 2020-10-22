@@ -1,10 +1,10 @@
 # iTextField
 
-A fully-wrapped `UITextField` that works entirely in SwiftUI
+### A fully-wrapped `UITextField` that works entirely in SwiftUI ⌨️
 
-![Farmers Market Finder Demo](Demo/iTextFieldDemo1Light.gif)
+<img src="Demo/iTextFieldDemo1Light.gif" alt="drawing" width="250"/>
 
-1. Install `iTextField`
+1. [Install](https://github.com/benjaminsage/iTextField/blob/main/INSTALL.md) `iTextField`
 2. Add `iTextField` to your project
 ```swift
 import SwiftUI
