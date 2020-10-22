@@ -2,6 +2,8 @@
 
 ### A fully-wrapped `UITextField` that works entirely in SwiftUI ⌨️
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=BH9BEVARXWWFC)
+
 <img src="Demo/iTextFieldDemo1Light.gif" alt="drawing" width="250"/>
 
 1. [Install](https://github.com/benjaminsage/iTextField/blob/master/INSTALL.md) `iTextField`
