@@ -187,6 +187,7 @@ public struct iTextField: UIViewRepresentable {
         
         public func textFieldShouldClear(_ textField: UITextField) -> Bool {
             shouldClear()
+            text = ""
             return false
         }
     }
@@ -323,17 +324,11 @@ extension iTextField {
     }
     
     /// Modifies whether and when the text field **clear button** appears on the view. ⭕️ ❌
-    ///
-    /// Options:
-    /// 1. `.never`: The clear button is never visible
-    /// 2. `.whileEditing`: The clear button is visible when the user is editing
-    /// 3. `.unlessEditing`: The clear button is only visible when the user is not editing
-    /// 4. `.always`: The clear button is always visible
-    /// - Parameter mode: When the clear button should be visible
+    /// - Parameter showsButton: Whether the clear button should be visible
     /// - Returns: A text field with updated clear button settings
-    public func showsClearButton(_ mode: UITextField.ViewMode) -> iTextField {
+    public func showsClearButton(_ showsButton: Bool) -> iTextField {
         var view = self
-        view.clearButtonMode = mode
+        view.clearButtonMode = showsButton ? .always : .never
         return view
     }
     
