@@ -13,6 +13,8 @@ public struct iTextField: UIViewRepresentable {
     private var didBeginEditing: () -> Void = { }
     private var didChange: () -> Void = { }
     private var didEndEditing: () -> Void = { }
+    private var shouldReturn: () -> Void = { }
+    private var shouldClear: () -> Void = { }
     
     private var font: UIFont?
     private var foregroundColor: UIColor?
@@ -28,6 +30,14 @@ public struct iTextField: UIViewRepresentable {
     private var isSecure: Bool = false
     private var isUserInteractionEnabled: Bool = true
     private var clearsOnBeginEditing: Bool = false
+    private var clearsOnInsertion: Bool = false
+    private var clearButtonMode: UITextField.ViewMode = .never
+    
+    private var passwordRules: UITextInputPasswordRules?
+    private var smartDashesType: UITextSmartDashesType = .default
+    private var smartInsertDeleteType: UITextSmartInsertDeleteType = .default
+    private var smartQuotesType: UITextSmartQuotesType = .default
+    private var spellCheckingType: UITextSpellCheckingType = .default
     
     @Environment(\.layoutDirection) private var layoutDirection: LayoutDirection
     
@@ -48,39 +58,51 @@ public struct iTextField: UIViewRepresentable {
     public func makeUIView(context: Context) -> UITextField {
         let textField = UITextField()
         
+        // Validating and Handling Edits
         textField.delegate = context.coordinator
         
-        textField.placeholder = placeholder
+        // Accessing the Text Attributes
         textField.text = text
+        textField.placeholder = placeholder
         textField.font = font
         textField.textColor = foregroundColor
         if let textAlignment = textAlignment {
             textField.textAlignment = textAlignment
         }
+        
+        // Managing the Editing Behavior
+        if isEditing {
+            textField.becomeFirstResponder()
+        }
+        textField.clearsOnBeginEditing = clearsOnBeginEditing
+        textField.clearsOnInsertion = clearsOnInsertion
+        
+        // Other settings
         if let contentType = contentType {
             textField.textContentType = contentType
         }
         if let accentColor = accentColor {
             textField.tintColor = accentColor
         }
+        textField.clearButtonMode = clearButtonMode
         textField.autocorrectionType = autocorrection
         textField.autocapitalizationType = autocapitalization
         textField.keyboardType = keyboardType
         textField.returnKeyType = returnKeyType
         
-        textField.clearsOnBeginEditing = clearsOnBeginEditing
         textField.isSecureTextEntry = isSecure
         textField.isUserInteractionEnabled = isUserInteractionEnabled
-        if isEditing {
-            textField.becomeFirstResponder()
-        }
         
         textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
+        textField.passwordRules = passwordRules
+        textField.smartDashesType = smartDashesType
+        textField.smartInsertDeleteType = smartInsertDeleteType
+        textField.smartQuotesType = smartQuotesType
+        textField.spellCheckingType = spellCheckingType
         
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textFieldDidChange(_:)), for: .editingChanged)
-        
         
         return textField
     }
@@ -94,14 +116,14 @@ public struct iTextField: UIViewRepresentable {
         }
     }
     
-    
-    
     public func makeCoordinator() -> Coordinator {
         return Coordinator(text: $text,
                            isEditing: $isEditing,
                            didBeginEditing: didBeginEditing,
                            didChange: didChange,
-                           didEndEditing: didEndEditing)
+                           didEndEditing: didEndEditing,
+                           shouldReturn: shouldReturn,
+                           shouldClear: shouldClear)
     }
     
     public final class Coordinator: NSObject, UITextFieldDelegate {
@@ -111,13 +133,24 @@ public struct iTextField: UIViewRepresentable {
         var didBeginEditing: () -> Void
         var didChange: () -> Void
         var didEndEditing: () -> Void
+        var shouldReturn: () -> Void
+        var shouldClear: () -> Void
         
-        init(text: Binding<String>, isEditing: Binding<Bool>, didBeginEditing: @escaping () -> Void, didChange: @escaping () -> Void, didEndEditing: @escaping () -> Void) {
+        init(text: Binding<String>,
+             isEditing: Binding<Bool>,
+             didBeginEditing: @escaping () -> Void,
+             didChange: @escaping () -> Void,
+             didEndEditing: @escaping () -> Void,
+             shouldReturn: @escaping () -> Void,
+             shouldClear: @escaping () -> Void)
+        {
             self._text = text
             self._isEditing = isEditing
             self.didBeginEditing = didBeginEditing
             self.didChange = didChange
             self.didEndEditing = didEndEditing
+            self.shouldReturn = shouldReturn
+            self.shouldClear = shouldClear
         }
         
         public func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -129,14 +162,12 @@ public struct iTextField: UIViewRepresentable {
                     text = ""
                 }
                 didBeginEditing()
-                print("began?")
             }
         }
         
         @objc func textFieldDidChange(_ textField: UITextField) {
             text = textField.text ?? ""
             didChange()
-            print("changed")
         }
         
         public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
@@ -145,16 +176,20 @@ public struct iTextField: UIViewRepresentable {
                     isEditing = false
                 }
                 didEndEditing()
-                print("ended")
             }
         }
         
         public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             isEditing = false
+            shouldReturn()
+            return false
+        }
+        
+        public func textFieldShouldClear(_ textField: UITextField) -> Bool {
+            shouldClear()
             return false
         }
     }
-    
 }
 
 @available(iOS 13.0, *)
@@ -182,7 +217,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the **cursor color** 🌈 of the text field 🖱💬
+    /// Modifies the **cursor color** 🌈 of the text field 🖱 💬
     /// - Parameter accentColor: The cursor color 🎨
     /// - Returns: A phone number text field with updated cursor color 🚥🖍
     @available(iOS 13, *)
@@ -193,8 +228,8 @@ extension iTextField {
         }
         return view
     }
-        
-    /// Modifies the **text alignment** of a text field. ⬅️↔️➡️
+    
+    /// Modifies the **text alignment** of a text field. ⬅️ ↔️ ➡️
     /// - Parameter alignment: The desired text alignment 👈👉
     /// - Returns: An updated text field using the desired text alignment ↩️↪️
     public func multilineTextAlignment(_ alignment: TextAlignment) -> iTextField {
@@ -210,7 +245,7 @@ extension iTextField {
         return view
     }
     
-    /// Modifies the **content type** of a text field. 📧☎️📬
+    /// Modifies the **content type** of a text field. 📧 ☎️ 📬
     /// - Parameter textContentType: The type of text being inputted into the text field ⌨️
     /// - Returns: An updated text field using the desired text content type 💻📨
     public func textContentType(_ textContentType: UITextContentType?) -> iTextField {
@@ -277,12 +312,78 @@ extension iTextField {
         return view
     }
     
+    
+    /// Modifies the **clear-on-insertion** setting of a text field. 👆
+    /// - Parameter shouldClear: Whether the text field should clear on insertion
+    /// - Returns: A text field with updated clear-on-insertion settings
+    public func clearsOnInsertion(_ shouldClear: Bool) -> iTextField {
+        var view = self
+        view.clearsOnInsertion = shouldClear
+        return view
+    }
+    
+    /// Modifies whether and when the text field **clear button** appears on the view. ⭕️ ❌
+    ///
+    /// Options:
+    /// 1. `.never`: The clear button is never visible
+    /// 2. `.whileEditing`: The clear button is visible when the user is editing
+    /// 3. `.unlessEditing`: The clear button is only visible when the user is not editing
+    /// 4. `.always`: The clear button is always visible
+    /// - Parameter mode: When the clear button should be visible
+    /// - Returns: A text field with updated clear button settings
+    public func showsClearButton(_ mode: UITextField.ViewMode) -> iTextField {
+        var view = self
+        view.clearButtonMode = mode
+        return view
+    }
+    
     /// Modifies whether the text field is **disabled**. ✋
     /// - Parameter disabled: Whether the text field is disabled 🛑
     /// - Returns: A text field with updated disabled settings ⬜️⚙️
     public func disabled(_ disabled: Bool) -> iTextField {
         var view = self
         view.isUserInteractionEnabled = !disabled
+        return view
+    }
+    
+    public func passwordRules(_ rules: UITextInputPasswordRules) -> iTextField {
+        var view = self
+        view.passwordRules = rules
+        return view
+    }
+    
+    public func smartDashes(_ smartDashes: Bool?) -> iTextField {
+        var view = self
+        if let smartDashes = smartDashes {
+            view.smartDashesType = smartDashes ? .yes : .no
+        }
+        return view
+    }
+    
+    public func smartInsertDeleteType(_ smartInsertDelete: Bool?) -> iTextField {
+        var view = self
+        if let smartInsertDelete = smartInsertDelete {
+            view.smartInsertDeleteType = smartInsertDelete ? .yes : .no
+        }
+        return view
+    }
+    
+    public func smartQuotes(_ smartQuotes: Bool?) -> iTextField {
+        var view = self
+        if let smartQuotes = smartQuotes {
+            view.smartQuotesType = smartQuotes ? .yes : .no
+        }
+        return view
+    }
+    
+    /// Modifies whether the text field should check the user's **spelling** 🔡
+    /// - Parameter spellChecking: Whether the text field should check the user's spelling
+    /// - Returns: A text field with updated spell checking settings
+    public func spellChecking(_ spellChecking: Bool?) -> iTextField {
+        var view = self
+        if let spellChecking = spellChecking {
+            view.spellCheckingType = spellChecking ? .yes : .no
+        }
         return view
     }
     
@@ -312,6 +413,25 @@ extension iTextField {
     public func onEditingEnded(_ action: @escaping () -> Void) -> iTextField {
         var view = self
         view.didEndEditing = action
+        return view
+    }
+    
+    
+    /// Modifies the function called when the user presses the return key. ⬇️ ➡️
+    /// - Parameter action: The function called when the user presses the return key
+    /// - Returns: An updated text field using the desired funtion called when the user presses the return key
+    public func onReturn(_ action: @escaping () -> Void) -> iTextField {
+        var view = self
+        view.shouldReturn = action
+        return view
+    }
+    
+    /// Modifies the function called when the user clears the text field. ❌
+    /// - Parameter action: The function called when the user clears the text field
+    /// - Returns: An updated text field using the desired function called when the user clears the text field
+    public func onClear(_ action: @escaping () -> Void) -> iTextField {
+        var view = self
+        view.shouldClear = action
         return view
     }
     
