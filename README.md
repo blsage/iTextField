@@ -95,25 +95,30 @@ Use this exhaustive input list to customize your text field.
 
 Modifier | Description
 --- | ---
-`.fontFromUIFont(font: UIFont?) -> iTextField` | Modifies the text field’s **font** from a `UIFont` object. 🔠
-`.foregroundColor(color: Color?) -> iTextField` | Modifies the **text color** 🎨 of the text field.
-`.accentColor(accentColor: Color?) -> iTextField` | Modifies the **cursor color** 🌈 of the text field
-`.multilineTextAlignment(alignment: TextAlignment) -> iTextField` | Modifies the **text alignment** of a text field. ↔️
-`.textContentType(textContentType: UITextContentType?) -> iTextField` | Modifies the **content type** of a text field. 📧 ☎️
-`.disableAutocorrection(disable: Bool?) -> iTextField` | Modifies the text field’s **autocorrection** settings.
-`.keyboardType(type: UIKeyboardType) -> iTextField` | Modifies the text field’s **keyboard type**. 📩
-`.autocapitalization(style: UITextAutocapitalizationType) -> iTextField` | Modifies the text field’s **autocapitalization** style. 🔡
-`.returnKeyType(type: UIReturnKeyType) -> iTextField` | Modifies the text field’s **return key** type. ✅
-`.isSecure(isSecure: Bool) -> iTextField` | Modifies the text field’s **secure entry** settings. 🔒
-`.clearsOnBeginEditing(shouldClear: Bool) -> iTextField` | Modifies the **clear-on-begin-editing** setting of a text field. ❌
+`.fontFromUIFont(_ font: UIFont?) -> iTextField` | Modifies the text field’s **font** from a `UIFont` object. 🔠
+`.foregroundColor(_ color: Color?) -> iTextField` | Modifies the **text color** 🎨 of the text field.
+`.accentColor(_ accentColor: Color?) -> iTextField` | Modifies the **cursor color** 🌈 of the text field
+`.multilineTextAlignment(_ alignment: TextAlignment) -> iTextField` | Modifies the **text alignment** of a text field. ↔️
+`.textContentType(_ textContentType: UITextContentType?) -> iTextField` | Modifies the **content type** of a text field. 📧 ☎️
+`.disableAutocorrection(_ disable: Bool?) -> iTextField` | Modifies the text field’s **autocorrection** settings.
+`.keyboardType(_ type: UIKeyboardType) -> iTextField` | Modifies the text field’s **keyboard type**. 📩
+`.autocapitalization(_ style: UITextAutocapitalizationType) -> iTextField` | Modifies the text field’s **autocapitalization** style. 🔡
+`.returnKeyType(_ type: UIReturnKeyType) -> iTextField` | Modifies the text field’s **return key** type. ✅
+`.isSecure(_ isSecure: Bool) -> iTextField` | Modifies the text field’s **secure entry** settings. 🔒
+`.clearsOnBeginEditing(_ shouldClear: Bool) -> iTextField` | Modifies the **clear-on-begin-editing** setting of a text field. ❌
 `clearsOnInsertion(_ shouldClear: Bool) -> iTextField` | Modifies the **clear-on-insertion** setting of a text field. 👆
+`.showsClearButton(_ showsButton: Bool) -> iTextField` | Modifies whether and when the text field **clear button** appears on the view. ⭕️ ❌
+`.passwordRules(_ rules: UITextInputPasswordRules) -> iTextField` | Modifies the text field's **password rules** 🔒. Sets secure entry to `true`.
+`.spellChecking(_ spellChecking: Bool?) -> iTextField` | Modifies whether the text field should check the user's **spelling**
+`.smartDashes(_ smartDashes: Bool?) -> iTextField` | Modifies whether the text field includes **smart dashes**.
+`.smartInsertDelete(_ smartInsertDelete: Bool? = nil) -> iTextField` | Modifies whether the text field uses **smart insert-delete**.
+`.smartQuotes(_ smartQuotes: Bool? = nil) -> iTextField` | Modifies whether the text field uses **smart quotes**.
 `.disabled(disabled: Bool) -> iTextField` | Modifies whether the text field is **disabled**. ✋
-`spellChecking(_ spellChecking: Bool?) -> iTextField` | Modifies whether the text field should check the user's **spelling**
-`.onEditingBegan(action: { code }) -> iTextField` | Modifies the function called when text editing **begins**. ▶️
+`.onEditingBegan(perform action: { code }) -> iTextField` | Modifies the function called when text editing **begins**. ▶️
 `.onEdit(_ action: { code }) -> iTextField` | Modifies the function called when the user makes any **changes** to the text in the text field. 💬
-`.onEditingEnded(_ action: { code }) -> iTextField` | Modifies the function called when text editing **ends**. 🔚
-`onReturn(_ action: { code }) -> iTextField` | Modifies the function called when the user presses the return key. ⬇️ ➡️
-`onClear(_ action: { code }) -> iTextField` | Modifies the function called when the user clears the text field. ❌
+`.onEditingEnded(perform action: { code }) -> iTextField` | Modifies the function called when text editing **ends**. 🔚
+`.onReturn(perform action: { code }) -> iTextField` | Modifies the function called when the user presses the return key. ⬇️ ➡️
+`.onClear(perform action: { code }) -> iTextField` | Modifies the function called when the user clears the text field. ❌
 
 ## Install 
 Use the Swift package manager to install. Find instructions [here](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md)😀

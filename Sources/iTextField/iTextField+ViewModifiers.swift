@@ -128,7 +128,6 @@ extension iTextField {
         return view
     }
     
-    
     /// Modifies the **clear-on-insertion** setting of a text field. 👆
     /// - Parameter shouldClear: Whether the text field should clear on insertion
     /// - Returns: A text field with updated clear-on-insertion settings
@@ -156,13 +155,20 @@ extension iTextField {
         return view
     }
     
+    /// Modifies the text field's **password rules** 🔒. Sets secure entry to `true`.
+    /// - Parameter rules: The text field's password rules.
+    /// - Returns: A text field with updated password rules
     public func passwordRules(_ rules: UITextInputPasswordRules) -> iTextField {
         var view = self
+        view.isSecure = true
         view.passwordRules = rules
         return view
     }
     
-    public func smartDashes(_ smartDashes: Bool?) -> iTextField {
+    /// Modifies whether the text field includes **smart dashes**.
+    /// - Parameter smartDashes: Whether the text field includes smart dashes. Does nothing if `nil`.
+    /// - Returns: A text field with the updated smart dashes settings.
+    public func smartDashes(_ smartDashes: Bool? = nil) -> iTextField {
         var view = self
         if let smartDashes = smartDashes {
             view.smartDashesType = smartDashes ? .yes : .no
@@ -170,7 +176,10 @@ extension iTextField {
         return view
     }
     
-    public func smartInsertDeleteType(_ smartInsertDelete: Bool?) -> iTextField {
+    /// Modifies whether the text field uses **smart insert-delete**.
+    /// - Parameter smartInsertDelete: Whether the text field uses smart insert-delete. Does nothing if `nil`.
+    /// - Returns: A text field with the updated smart insert-delete settings.
+    public func smartInsertDelete(_ smartInsertDelete: Bool? = nil) -> iTextField {
         var view = self
         if let smartInsertDelete = smartInsertDelete {
             view.smartInsertDeleteType = smartInsertDelete ? .yes : .no
@@ -178,7 +187,10 @@ extension iTextField {
         return view
     }
     
-    public func smartQuotes(_ smartQuotes: Bool?) -> iTextField {
+    /// Modifies whether the text field uses **smart quotes**.
+    /// - Parameter smartQuotes: Whether the text field uses smart quotes. Does nothing if `nil`.
+    /// - Returns: A text field with the updated smart quotes settings
+    public func smartQuotes(_ smartQuotes: Bool? = nil) -> iTextField {
         var view = self
         if let smartQuotes = smartQuotes {
             view.smartQuotesType = smartQuotes ? .yes : .no
@@ -187,9 +199,9 @@ extension iTextField {
     }
     
     /// Modifies whether the text field should check the user's **spelling** 🔡
-    /// - Parameter spellChecking: Whether the text field should check the user's spelling
+    /// - Parameter spellChecking: Whether the text field should check the user's spelling. Does nothing if `nil`.
     /// - Returns: A text field with updated spell checking settings
-    public func spellChecking(_ spellChecking: Bool?) -> iTextField {
+    public func spellChecking(_ spellChecking: Bool? = nil) -> iTextField {
         var view = self
         if let spellChecking = spellChecking {
             view.spellCheckingType = spellChecking ? .yes : .no
@@ -198,50 +210,60 @@ extension iTextField {
     }
     
     /// Modifies the function called when text editing **begins**. ▶️
-    /// - Parameter action: The function called when text editing begins 🏁
+    /// - Parameter action: The function called when text editing begins 🏁. Does nothing if `nil`.
     /// - Returns: An updated text field using the desired function called when text editing begins ➡️
-    public func onEditingBegan(_ action: @escaping () -> Void) -> iTextField {
+    public func onEditingBegan(perform action: (() -> Void)? = nil) -> iTextField {
         var view = self
-        view.didBeginEditing = action
+        if let action = action {
+            view.didBeginEditing = action
+        }
         return view
         
     }
     
     /// Modifies the function called when the user makes any **changes** to the text in the text field. 💬
-    /// - Parameter action: The function called when the user makes any changes to the text in the text field ⚙️
+    /// - Parameter action: The function called when the user makes any changes to the text in the text field ⚙️. Does nothing if `nil`.
     /// - Returns: An updated text field using the desired function called when the user makes any changes to the text in the text field 🔄
-    public func onEdit(_ action: @escaping () -> Void) -> iTextField {
+    public func onEdit(perform action: (() -> Void)? = nil) -> iTextField {
         var view = self
-        view.didChange = action
+        if let action = action {
+            view.didChange = action
+        }
         return view
         
     }
     
     /// Modifies the function called when text editing **ends**. 🔚
-    /// - Parameter action: The function called when text editing ends 🛑
+    /// - Parameter action: The function called when text editing ends 🛑. Does nothing if `nil`.
     /// - Returns: An updated text field using the desired function called when text editing ends ✋
-    public func onEditingEnded(_ action: @escaping () -> Void) -> iTextField {
+    public func onEditingEnded(perform action: (() -> Void)? = nil) -> iTextField {
         var view = self
-        view.didEndEditing = action
+        if let action = action {
+            view.didEndEditing = action
+        }
         return view
     }
     
     
     /// Modifies the function called when the user presses the return key. ⬇️ ➡️
-    /// - Parameter action: The function called when the user presses the return key
+    /// - Parameter action: The function called when the user presses the return key. Does nothing if `nil`.
     /// - Returns: An updated text field using the desired funtion called when the user presses the return key
-    public func onReturn(_ action: @escaping () -> Void) -> iTextField {
+    public func onReturn(perform action: (() -> Void)? = nil) -> iTextField {
         var view = self
-        view.shouldReturn = action
+        if let action = action {
+            view.shouldReturn = action
+        }
         return view
     }
     
     /// Modifies the function called when the user clears the text field. ❌
-    /// - Parameter action: The function called when the user clears the text field
+    /// - Parameter action: The function called when the user clears the text field. Does nothing if `nil`.
     /// - Returns: An updated text field using the desired function called when the user clears the text field
-    public func onClear(_ action: @escaping () -> Void) -> iTextField {
+    public func onClear(perform action: (() -> Void)? = nil) -> iTextField {
         var view = self
-        view.shouldClear = action
+        if let action = action {
+            view.shouldClear = action
+        }
         return view
     }
     
