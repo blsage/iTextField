@@ -12,12 +12,10 @@ import iTextField
 
 struct ContentView: View {
     @State var text: String = ""
-    @State var isEditing: Bool = false
 
     var body: some View {
         iTextField("Placeholder",
-                   text: $text,
-                   isEditing: $isEditing)
+                   text: $text)
     }
 }
 ```
@@ -33,10 +31,9 @@ import iTextField
 
 struct ContentView: View {
     @State var text: String = ""
-    @State var isEditing: Bool = false
 
     var body: some View {
-        iTextField("Placeholder", text: $text, isEditing: $isEditing)
+        iTextField("Placeholder", text: $text)
             .accentColor(.purple)
             .fontFromUIFont(UIFont(name: "Avenir", size: 40))
             .keyboardType(.URL)
@@ -44,6 +41,26 @@ struct ContentView: View {
             .disableAutocorrection(true)
             .autocapitalization(.none)
             .padding()
+    }
+}
+```
+
+### Jump text fields
+Use the optional `isEditing` binding parameter to programmatically jump between text fields.
+```swift
+import SwiftUI
+import iTextField
+
+struct ContentView: View {
+    @State var text1: String = ""
+    @State var text2: String = ""
+    @State var isSecondEditing: String = ""
+
+    var body: some View {
+        iTextField("First", text: $text1)
+            .onReturn { isSecondEditing = true }
+        iTextField("Second", text: $text2,
+                   isEditing: $isSecondEditing)
     }
 }
 ```
