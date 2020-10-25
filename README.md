@@ -1,5 +1,5 @@
-<h1 align="center"> iTextField📖</p>
-<h3 align="center"> A fully-wrapped `UITextField` that works entirely in SwiftUI ⌨️ </h3>
+<h1 align="center"> iTextField ⌨️</p>
+<h3 align="center"> A fully-wrapped `UITextField` that works entirely in SwiftUI 🦅 </h3>
 <p align="center">
     <strong><a href="#get-started">Get Started</a></strong> |
     <strong><a href="#examples">Examples</a></strong> |
