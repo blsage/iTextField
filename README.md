@@ -81,7 +81,7 @@ struct ContentView: View {
 
 
 ## Customize
-`iTextField` has two required parameters: 1️⃣ a placeholder, 2️⃣ a `text` state. You can optionally pass in a 3️⃣rd an `isEditing` binding if you would like to programmatically focus or unfocus the text field.
+`iTextField` has two required parameters: 1️⃣ a placeholder and 2️⃣ a `text` state. You can optionally pass in a 3️⃣rd an `isEditing` binding if you would like to programmatically focus or unfocus the text field.
 
 iTextField also supports a variety of modifiers.
 
