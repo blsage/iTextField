@@ -117,8 +117,8 @@ Modifier | Description
 `.onEditingBegan(perform action: { code }) -> iTextField` | Modifies the function called when text editing **begins**. ▶️
 `.onEdit(perform action: { code }) -> iTextField` | Modifies the function called when the user makes any **changes** to the text in the text field. 💬
 `.onEditingEnded(perform action: { code }) -> iTextField` | Modifies the function called when text editing **ends**. 🔚
-`.onReturn(perform action: { code }) -> iTextField` | Modifies the function called when the user presses the return key. ⬇️ ➡️
-`.onClear(perform action: { code }) -> iTextField` | Modifies the function called when the user clears the text field. ❌
+`.onReturn(perform action: { code }) -> iTextField` | Modifies the function called when the user presses the **return** key. ⬇️ ➡️
+`.onClear(perform action: { code }) -> iTextField` | Modifies the function called when the user **clears** the text field. ❌
 
 ## Install 
 Use the Swift package manager to install. Find instructions [here](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md)😀
