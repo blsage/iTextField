@@ -81,7 +81,9 @@ struct ContentView: View {
 
 
 ## Customize
-`iTextField` has three required parameters: 1️⃣ a placeholder, 2️⃣ a `text` state, and 3️⃣ an `isEditing` state. iTextField also supports a variety of modifiers.
+`iTextField` has two required parameters: 1️⃣ a placeholder, 2️⃣ a `text` state. You can optionally pass in a 3️⃣rd an `isEditing` binding if you would like to programmatically focus or unfocus the text field.
+
+iTextField also supports a variety of modifiers.
 
 **Example**: Change the foreground color, accent color, and text alignment with the following code block:
 ```swift
