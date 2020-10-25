@@ -110,8 +110,8 @@ Modifier | Description
 `clearsOnInsertion(_ shouldClear: Bool)` | Modifies the **clear-on-insertion** setting of a text field. 👆
 `.showsClearButton(_ showsButton: Bool)` | Modifies whether and when the text field **clear button** appears on the view. ⭕️ ❌
 `.passwordRules(_ rules: UITextInputPasswordRules)` | Modifies the text field's **password rules** 🔒. Sets secure entry to `true`.
-`.spellChecking(_ spellChecking: Bool?)` | Modifies whether the text field should check the user's **spelling**.
-`.smartDashes(_ smartDashes: Bool?)` | Modifies whether the text field includes **smart dashes**.
+`.spellChecking(_ spellChecking: Bool? = nil)` | Modifies whether the text field should check the user's **spelling**.
+`.smartDashes(_ smartDashes: Bool? = nil)` | Modifies whether the text field includes **smart dashes**.
 `.smartInsertDelete(_ smartInsertDelete: Bool? = nil)` | Modifies whether the text field uses **smart insert-delete**.
 `.smartQuotes(_ smartQuotes: Bool? = nil)` | Modifies whether the text field uses **smart quotes**.
 `.disabled(disabled: Bool)` | Modifies whether the text field is **disabled**. ✋
