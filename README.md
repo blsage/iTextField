@@ -115,7 +115,7 @@ Modifier | Description
 `.smartQuotes(_ smartQuotes: Bool? = nil) -> iTextField` | Modifies whether the text field uses **smart quotes**.
 `.disabled(disabled: Bool) -> iTextField` | Modifies whether the text field is **disabled**. ✋
 `.onEditingBegan(perform action: { code }) -> iTextField` | Modifies the function called when text editing **begins**. ▶️
-`.onEdit(_ action: { code }) -> iTextField` | Modifies the function called when the user makes any **changes** to the text in the text field. 💬
+`.onEdit(perform action: { code }) -> iTextField` | Modifies the function called when the user makes any **changes** to the text in the text field. 💬
 `.onEditingEnded(perform action: { code }) -> iTextField` | Modifies the function called when text editing **ends**. 🔚
 `.onReturn(perform action: { code }) -> iTextField` | Modifies the function called when the user presses the return key. ⬇️ ➡️
 `.onClear(perform action: { code }) -> iTextField` | Modifies the function called when the user clears the text field. ❌
