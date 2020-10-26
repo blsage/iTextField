@@ -47,7 +47,7 @@ public struct iTextField: UIViewRepresentable {
     
     @Environment(\.layoutDirection) var layoutDirection: LayoutDirection
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    
+        
     /// Initializes a new **text field** 👷‍♂️⌨️ with enhanced functionality. 🏋️‍♀️
     /// - Parameters:
     ///   - placeholder: The text to display in the text field when nothing has been inputted
