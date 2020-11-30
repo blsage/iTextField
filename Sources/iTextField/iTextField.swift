@@ -15,6 +15,7 @@ public struct iTextField: UIViewRepresentable {
         hasExternalIsEditing ? $externalIsEditing : $internalIsEditing
     }
     private var hasExternalIsEditing = false
+    var designEditing: Bool { externalIsEditing }
     
     var didBeginEditing: () -> Void = { }
     var didChange: () -> Void = { }
@@ -46,7 +47,7 @@ public struct iTextField: UIViewRepresentable {
     var spellCheckingType: UITextSpellCheckingType = .default
     
     @Environment(\.layoutDirection) var layoutDirection: LayoutDirection
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
         
     /// Initializes a new **text field** 👷‍♂️⌨️ with enhanced functionality. 🏋️‍♀️
     /// - Parameters:

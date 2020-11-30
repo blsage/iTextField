@@ -267,6 +267,66 @@ extension iTextField {
         return view
     }
     
+    func style(height: CGFloat = 58,
+               backgroundColor: Color? = nil,
+               accentColor: Color = Color(red: 0.30, green: 0.76, blue: 0.85),
+               font inputFont: UIFont? = nil,
+               paddingLeading: CGFloat = 25,
+               cornerRadius: CGFloat = 6,
+               hasShadow: Bool = true) -> some View
+    {
+        var darkMode: Bool { colorScheme == .dark }
+        
+        let cursorColor: Color = accentColor
+        let height: CGFloat = height
+        let leadingPadding: CGFloat = paddingLeading
+        
+        var backgroundGray: Double { darkMode ? 0.25 : 0.95 }
+        var backgroundColor: Color {
+            if backgroundColor != nil {
+                return backgroundColor!
+            } else {
+                return .init(white: backgroundGray)
+            }
+        }
+        
+        var shadowOpacity: Double { (designEditing && hasShadow) ? 0.5 : 0 }
+        var shadowGray: Double { darkMode ? 0.8 : 0.5 }
+        var shadowColor: Color { Color(white: shadowGray).opacity(shadowOpacity) }
+        
+        var borderColor: Color {
+            designEditing && darkMode ? .init(white: 0.6) : .clear
+        }
+        
+        var font: UIFont {
+            if inputFont != nil {
+                return inputFont!
+            } else {
+                let fontSize: CGFloat = 20
+                let systemFont = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+                if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
+                    return  UIFont(descriptor: descriptor, size: fontSize)
+                } else {
+                    return systemFont
+                }
+            }
+            
+        }
+        
+        return ZStack {
+            self
+                .accentColor(cursorColor)
+                .fontFromUIFont(font)
+                .padding(.horizontal, leadingPadding)
+        }
+        .frame(height: height)
+        .background(backgroundColor)
+        .cornerRadius(cornerRadius)
+        .overlay(RoundedRectangle(cornerRadius: cornerRadius).stroke(borderColor))
+        .padding(.horizontal, leadingPadding)
+        .shadow(color: shadowColor, radius: 5, x: 0, y: 4)
+    }
+    
     /// Since Apple has not given us a way yet to parse a `Font` 🔠🔡  object, this function must be deprecated 😔. Please use `.fontFromUIFont(_:)` instead 🙂.
     /// - Parameter font:
     /// - Returns:
