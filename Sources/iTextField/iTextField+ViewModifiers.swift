@@ -267,13 +267,24 @@ extension iTextField {
         return view
     }
     
-    func style(height: CGFloat = 58,
+    /// Gives the text field a default style.
+    /// - Parameters:
+    ///   - height: How tall the text field should be, in points. Defaults to 58.
+    ///   - backgroundColor: The background color of the text field. Defaults to clear.
+    ///   - accentColor: The cursor and highlighting color of the text field. Defaults to light blue.
+    ///   - inputFont: The font of the text field
+    ///   - paddingLeading: Leading-edge padding size, in points. Defaults to 25.
+    ///   - cornerRadius: Text field corner radius. Defaults to 6.
+    ///   - hasShadow: Whether or not the text field has a shadow when selected. Defaults to true.
+    /// - Returns: A stylized view containing a text field.
+    public func style(height: CGFloat = 58,
                backgroundColor: Color? = nil,
                accentColor: Color = Color(red: 0.30, green: 0.76, blue: 0.85),
                font inputFont: UIFont? = nil,
                paddingLeading: CGFloat = 25,
                cornerRadius: CGFloat = 6,
-               hasShadow: Bool = true) -> some View
+               hasShadow: Bool = true,
+               image: Image? = nil) -> some View
     {
         var darkMode: Bool { colorScheme == .dark }
         
@@ -299,8 +310,8 @@ extension iTextField {
         }
         
         var font: UIFont {
-            if inputFont != nil {
-                return inputFont!
+            if let inputFont = inputFont {
+                return inputFont
             } else {
                 let fontSize: CGFloat = 20
                 let systemFont = UIFont.systemFont(ofSize: fontSize, weight: .regular)
@@ -310,14 +321,18 @@ extension iTextField {
                     return systemFont
                 }
             }
-            
         }
         
         return ZStack {
-            self
-                .accentColor(cursorColor)
-                .fontFromUIFont(font)
-                .padding(.horizontal, leadingPadding)
+            HStack {
+                if let image = image {
+                    image
+                }
+                self
+                    .accentColor(cursorColor)
+                    .fontFromUIFont(font)
+            }
+            .padding(.horizontal, leadingPadding)
         }
         .frame(height: height)
         .background(backgroundColor)
