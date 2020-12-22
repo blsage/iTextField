@@ -5,7 +5,6 @@
     <strong><a href="#examples">Examples</a></strong> |
     <strong><a href="#customize">Customize</a></strong> |
     <strong><a href="#install">Install</a></strong> | 
-    <strong><a href="#usage">Usage</a></strong>
 </p>
 <p align="center">
     <img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/iTextField3.gif" alt="CI" />
@@ -137,13 +136,4 @@ As always, if you have any questions about iPhoneNumberField, we are available 2
 
 </div>
 
-
-## Usage
-<b>iTextField is FREE and open-source for individuals, and will remain that way forever. </b>
-
-iTextField is distributed under a GNU GPL open-source license. 
-
-Commercial friends, please note, this license is <b><a href="https://en.wikipedia.org/wiki/GNU_General_Public_License#Legal_barrier_to_app_stores">incompatible for many commercial applications</a></b>. Licenses are available for only $0.99.
-
-<p align="center"><a href="https://general099748.typeform.com/to/p5FtTKBj#package=iTextField"> <img src="https://github.com/AlexFine/SwiftUICode/blob/master/public/assets/img/Purchase%20License.png" width="300"> </a> </p>
 
