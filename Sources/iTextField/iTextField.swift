@@ -122,6 +122,41 @@ public struct iTextField: UIViewRepresentable {
     
     public func updateUIView(_ uiView: UITextField, context: Context) {
         uiView.text = text
+        textField.placeholder = placeholder
+        textField.font = font
+        textField.textColor = foregroundColor
+        if let textAlignment = textAlignment {
+            textField.textAlignment = textAlignment
+        }
+
+        textField.clearsOnBeginEditing = clearsOnBeginEditing
+        textField.clearsOnInsertion = clearsOnInsertion
+        
+        // Other settings
+        if let contentType = contentType {
+            textField.textContentType = contentType
+        }
+        if let accentColor = accentColor {
+            textField.tintColor = accentColor
+        }
+        textField.clearButtonMode = clearButtonMode
+        textField.autocorrectionType = autocorrection
+        textField.autocapitalizationType = autocapitalization
+        textField.keyboardType = keyboardType
+        textField.returnKeyType = returnKeyType
+        
+        textField.isSecureTextEntry = isSecure
+        textField.isUserInteractionEnabled = isUserInteractionEnabled
+        
+        textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
+        textField.passwordRules = passwordRules
+        textField.smartDashesType = smartDashesType
+        textField.smartInsertDeleteType = smartInsertDeleteType
+        textField.smartQuotesType = smartQuotesType
+        textField.spellCheckingType = spellCheckingType
+
         if isEditing.wrappedValue {
             uiView.becomeFirstResponder()
         } else {
