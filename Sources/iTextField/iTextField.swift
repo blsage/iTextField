@@ -120,8 +120,8 @@ public struct iTextField: UIViewRepresentable {
         return textField
     }
     
-    public func updateUIView(_ uiView: UITextField, context: Context) {
-        uiView.text = text
+    public func updateUIView(_ textField: UITextField, context: Context) {
+        textField.text = text
         textField.placeholder = placeholder
         textField.font = font
         textField.textColor = foregroundColor
@@ -158,9 +158,9 @@ public struct iTextField: UIViewRepresentable {
         textField.spellCheckingType = spellCheckingType
 
         if isEditing.wrappedValue {
-            uiView.becomeFirstResponder()
+            textField.becomeFirstResponder()
         } else {
-            uiView.resignFirstResponder()
+            textField.resignFirstResponder()
         }
     }
     
