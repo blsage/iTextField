@@ -11,7 +11,9 @@ import UIKit
 @available(iOS 13.0, *)
 extension iTextField {
 
-    //Sets the maximum amount of characters allowed in this text field. 
+    /// Sets the maximum amount of characters allowed in this text field. 
+    /// - Parameter limit: the maximum amount of characters allowed
+    /// - Returns: An updated text field limited to limit
     public func characterLimit(_ limit: Int?) -> iTextField { 
         var view = self
         view.characterLimit = limit
