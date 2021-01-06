@@ -166,6 +166,7 @@ public struct iTextField: UIViewRepresentable {
     }
     
     public func makeCoordinator() -> Coordinator {
+        print("makeCoordinator: \(characterLimit)")
         return Coordinator(
             text: $text,
             isEditing: isEditing,
@@ -246,14 +247,14 @@ public struct iTextField: UIViewRepresentable {
             return false
         }
         
-        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText newText: String) -> Bool {
+        public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
             //if there is a character limit set and new text will be greater than limt, then don't allow the newly proposed edit
-            if let limit = characterLimit {
-                if textView.text.count + newText.count > limit {
+            if let limit = characterLimit, let text = textField.text {
+                if text.count + string.count > limit {
                     return false
                 }
             }
-            
+
             return true
         }
     }
