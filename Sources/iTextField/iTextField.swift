@@ -68,12 +68,8 @@ public struct iTextField: UIViewRepresentable {
         }
     }
     
-    public func makeUIView(context: Context) -> UITextField {
-        let textField = UITextField()
-        
-        // Validating and Handling Edits
-        textField.delegate = context.coordinator
-        
+    /// All these properties need to be set in exactly the same way to make the UIView and to update the UIView
+    private func setProperties(_ textField: UITextField) {
         // Accessing the Text Attributes
         textField.text = text
         textField.placeholder = placeholder
@@ -83,10 +79,6 @@ public struct iTextField: UIViewRepresentable {
             textField.textAlignment = textAlignment
         }
         
-        // Managing the Editing Behavior
-        if isEditing.wrappedValue {
-            textField.becomeFirstResponder()
-        }
         textField.clearsOnBeginEditing = clearsOnBeginEditing
         textField.clearsOnInsertion = clearsOnInsertion
         
@@ -103,7 +95,6 @@ public struct iTextField: UIViewRepresentable {
         textField.keyboardType = keyboardType
         textField.returnKeyType = returnKeyType
         
-        textField.isSecureTextEntry = isSecure
         textField.isUserInteractionEnabled = isUserInteractionEnabled
         
         textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
@@ -114,6 +105,22 @@ public struct iTextField: UIViewRepresentable {
         textField.smartInsertDeleteType = smartInsertDeleteType
         textField.smartQuotesType = smartQuotesType
         textField.spellCheckingType = spellCheckingType
+    }
+    
+    public func makeUIView(context: Context) -> UITextField {
+        let textField = UITextField()
+        
+        // Validating and Handling Edits
+        textField.delegate = context.coordinator
+        
+        setProperties(textField)
+        
+        textField.isSecureTextEntry = isSecure
+
+        // Managing the Editing Behavior
+        if isEditing.wrappedValue {
+            textField.becomeFirstResponder()
+        }
         
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textFieldDidChange(_:)), for: .editingChanged)
         
@@ -121,41 +128,38 @@ public struct iTextField: UIViewRepresentable {
     }
     
     public func updateUIView(_ textField: UITextField, context: Context) {
-        textField.text = text
-        textField.placeholder = placeholder
-        textField.font = font
-        textField.textColor = foregroundColor
-        if let textAlignment = textAlignment {
-            textField.textAlignment = textAlignment
-        }
+        setProperties(textField)
+        
+        /// # Handling the toggling of isSecure correctly
+        ///
+        /// To ensure that the cursor position is maintained when toggling secureTextEntry
+        /// we can read the cursor position before updating the property and set it back afterwards.
+        ///
+        /// UITextField also deletes all the existing text whenever secureTextEntry goes from false to true.
+        /// We work around that by procedurely removing and re-adding the text here.
+        
+        if isSecure != textField.isSecureTextEntry {
+            var start: UITextPosition?
+            var end: UITextPosition?
+            
+            if let selectedRange = textField.selectedTextRange {
+                start = selectedRange.start
+                end = selectedRange.end
+            }
 
-        textField.clearsOnBeginEditing = clearsOnBeginEditing
-        textField.clearsOnInsertion = clearsOnInsertion
-        
-        // Other settings
-        if let contentType = contentType {
-            textField.textContentType = contentType
+            textField.isSecureTextEntry = isSecure
+            if isSecure && isEditing.wrappedValue {
+                if let currentText = textField.text {
+                    textField.text?.removeAll()
+                    textField.insertText(currentText)
+                }
+            }
+            if isEditing.wrappedValue {
+                if let start = start, let end = end {
+                    textField.selectedTextRange = textField.textRange(from: start, to: end)
+                }
+            }
         }
-        if let accentColor = accentColor {
-            textField.tintColor = accentColor
-        }
-        textField.clearButtonMode = clearButtonMode
-        textField.autocorrectionType = autocorrection
-        textField.autocapitalizationType = autocapitalization
-        textField.keyboardType = keyboardType
-        textField.returnKeyType = returnKeyType
-        
-        textField.isSecureTextEntry = isSecure
-        textField.isUserInteractionEnabled = isUserInteractionEnabled
-        
-        textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        
-        textField.passwordRules = passwordRules
-        textField.smartDashesType = smartDashesType
-        textField.smartInsertDeleteType = smartInsertDeleteType
-        textField.smartQuotesType = smartQuotesType
-        textField.spellCheckingType = spellCheckingType
 
         if isEditing.wrappedValue {
             textField.becomeFirstResponder()
