@@ -33,6 +33,7 @@ public struct iTextField: UIViewRepresentable {
     var autocapitalization: UITextAutocapitalizationType = .sentences
     var keyboardType: UIKeyboardType = .default
     var returnKeyType: UIReturnKeyType = .default
+    var characterLimit: Int? = nil
     
     var isSecure = false
     var isUserInteractionEnabled = true
@@ -169,18 +170,22 @@ public struct iTextField: UIViewRepresentable {
     }
     
     public func makeCoordinator() -> Coordinator {
-        return Coordinator(text: $text,
-                           isEditing: isEditing,
-                           didBeginEditing: didBeginEditing,
-                           didChange: didChange,
-                           didEndEditing: didEndEditing,
-                           shouldReturn: shouldReturn,
-                           shouldClear: shouldClear)
+        return Coordinator(
+            text: $text,
+            isEditing: isEditing,
+            characterLimit: characterLimit, 
+            didBeginEditing: didBeginEditing,
+            didChange: didChange,
+            didEndEditing: didEndEditing,
+            shouldReturn: shouldReturn,
+            shouldClear: shouldClear
+        )
     }
     
     public final class Coordinator: NSObject, UITextFieldDelegate {
         @Binding var text: String
         @Binding var isEditing: Bool
+        var characterLimit: Int? = nil 
         
         var didBeginEditing: () -> Void
         var didChange: () -> Void
@@ -190,6 +195,7 @@ public struct iTextField: UIViewRepresentable {
         
         init(text: Binding<String>,
              isEditing: Binding<Bool>,
+             characterLimit: Int?,
              didBeginEditing: @escaping () -> Void,
              didChange: @escaping () -> Void,
              didEndEditing: @escaping () -> Void,
@@ -198,6 +204,7 @@ public struct iTextField: UIViewRepresentable {
         {
             self._text = text
             self._isEditing = isEditing
+            self.characterLimit = characterLimit
             self.didBeginEditing = didBeginEditing
             self.didChange = didChange
             self.didEndEditing = didEndEditing
@@ -241,6 +248,17 @@ public struct iTextField: UIViewRepresentable {
             shouldClear()
             text = ""
             return false
+        }
+        
+        public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            //if there is a character limit set and new text will be greater than limt, then don't allow the newly proposed edit
+            if let limit = characterLimit, let text = textField.text {
+                if text.count + string.count > limit {
+                    return false
+                }
+            }
+
+            return true
         }
     }
 }

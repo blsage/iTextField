@@ -104,6 +104,7 @@ Modifier | Description
 `.keyboardType(_ type: UIKeyboardType)` | Modifies the text field’s **keyboard type**. 📩
 `.autocapitalization(_ style: UITextAutocapitalizationType)` | Modifies the text field’s **autocapitalization** style. 🔡
 `.returnKeyType(_ type: UIReturnKeyType)` | Modifies the text field’s **return key** type. ✅
+`.characterLimit(_ limit: Int?)` | Sets the maximum amount of characters allowed in this text field. 
 `.isSecure(_ isSecure: Bool)` | Modifies the text field’s **secure entry** settings. 🔒
 `.clearsOnBeginEditing(_ shouldClear: Bool)` | Modifies the **clear-on-begin-editing** setting of a text field. ❌
 `clearsOnInsertion(_ shouldClear: Bool)` | Modifies the **clear-on-insertion** setting of a text field. 👆
