@@ -166,7 +166,6 @@ public struct iTextField: UIViewRepresentable {
     }
     
     public func makeCoordinator() -> Coordinator {
-        print("makeCoordinator: \(characterLimit)")
         return Coordinator(
             text: $text,
             isEditing: isEditing,
