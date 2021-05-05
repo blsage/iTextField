@@ -303,12 +303,10 @@ extension iTextField {
         let leadingPadding: CGFloat = paddingLeading
         
         var backgroundGray: Double { darkMode ? 0.25 : 0.95 }
-        var backgroundColor: Color {
-            if backgroundColor != nil {
-                return backgroundColor!
-            } else {
-                return .init(white: backgroundGray)
-            }
+        
+        var finalBGColor: Color = .init(white: backgroundGray);
+        if let backgroundColor = backgroundColor {
+            finalBGColor = backgroundColor
         }
         
         var shadowOpacity: Double { (designEditing && hasShadow) ? 0.5 : 0 }
@@ -345,7 +343,7 @@ extension iTextField {
             .padding(.horizontal, leadingPadding)
         }
         .frame(height: height)
-        .background(backgroundColor)
+        .background(finalBGColor)
         .cornerRadius(cornerRadius)
         .overlay(RoundedRectangle(cornerRadius: cornerRadius).stroke(borderColor))
         .padding(.horizontal, leadingPadding)
