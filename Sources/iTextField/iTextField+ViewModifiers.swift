@@ -287,15 +287,16 @@ extension iTextField {
     ///   - cornerRadius: Text field corner radius. Defaults to 6.
     ///   - hasShadow: Whether or not the text field has a shadow when selected. Defaults to true.
     /// - Returns: A stylized view containing a text field.
-    public func style(height: CGFloat = 58,
-               backgroundColor: Color? = nil,
-               accentColor: Color = Color(red: 0.30, green: 0.76, blue: 0.85),
-               font inputFont: UIFont? = nil,
-               paddingLeading: CGFloat = 25,
-               cornerRadius: CGFloat = 6,
-               hasShadow: Bool = true,
-               image: Image? = nil) -> some View
-    {
+    public func style(
+        height: CGFloat = 58,
+        backgroundColor: Color? = nil,
+        accentColor: Color = Color(red: 0.30, green: 0.76, blue: 0.85),
+        font inputFont: UIFont? = nil,
+        paddingLeading: CGFloat = 25,
+        cornerRadius: CGFloat = 6,
+        hasShadow: Bool = true,
+        image: Image? = nil
+    ) -> some View {
         var darkMode: Bool { colorScheme == .dark }
         
         let cursorColor: Color = accentColor
