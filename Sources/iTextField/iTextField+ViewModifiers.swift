@@ -304,9 +304,11 @@ extension iTextField {
         
         var backgroundGray: Double { darkMode ? 0.25 : 0.95 }
         
-        var finalBGColor: Color = .init(white: backgroundGray);
-        if let backgroundColor = backgroundColor {
-            finalBGColor = backgroundColor
+        var finalBGColor: Color {
+            if let backgroundColor = backgroundColor {
+                return backgroundColor
+            }
+            return .init(white: backgroundGray);
         }
         
         var shadowOpacity: Double { (designEditing && hasShadow) ? 0.5 : 0 }
