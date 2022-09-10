@@ -26,6 +26,7 @@ public struct iTextField: UIViewRepresentable {
     var font: UIFont?
     var foregroundColor: UIColor?
     var accentColor: UIColor?
+    var placeholderColor: UIColor?
     var textAlignment: NSTextAlignment?
     var contentType: UITextContentType?
     
@@ -73,7 +74,11 @@ public struct iTextField: UIViewRepresentable {
     private func setProperties(_ textField: UITextField) {
         // Accessing the Text Attributes
         textField.text = text
-        textField.placeholder = placeholder
+        if let placeholderColor = placeholderColor {
+          textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [.foregroundColor: placeholderColor])
+        } else {
+          textField.placeholder = placeholder
+        }
         textField.font = font
         textField.textColor = foregroundColor
         if let textAlignment = textAlignment {
@@ -119,10 +124,12 @@ public struct iTextField: UIViewRepresentable {
         textField.isSecureTextEntry = isSecure
 
         // Managing the Editing Behavior
-        if isEditing.wrappedValue {
-            textField.becomeFirstResponder()
+        DispatchQueue.main.async {
+          if isEditing.wrappedValue {
+              textField.becomeFirstResponder()
+          }
         }
-        
+
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textFieldDidChange(_:)), for: .editingChanged)
         
         return textField
@@ -162,10 +169,12 @@ public struct iTextField: UIViewRepresentable {
             }
         }
 
-        if isEditing.wrappedValue {
-            textField.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
+        DispatchQueue.main.async {
+          if isEditing.wrappedValue {
+              textField.becomeFirstResponder()
+          } else {
+              textField.resignFirstResponder()
+          }
         }
     }
     

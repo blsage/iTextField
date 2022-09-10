@@ -54,6 +54,17 @@ extension iTextField {
         }
         return view
     }
+
+    /// Modifies the **placeholder color** 🌈 of the text field 🖱 💬
+    /// - Parameter placeholderColor: The color for placeholder 🎨
+    /// - Returns: A text field with updated placeholder color 🚥🖍
+    public func placeholderColor(_ placeholderColor: Color?) -> iTextField {
+      var view = self
+      if let placeholderColor = placeholderColor {
+          view.placeholderColor = UIColor.from(color: placeholderColor)
+      }
+      return view
+    }
     
     /// Modifies the **text alignment** of a text field. ⬅️ ↔️ ➡️
     /// - Parameter alignment: The desired text alignment 👈👉
