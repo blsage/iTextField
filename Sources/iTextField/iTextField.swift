@@ -124,10 +124,12 @@ public struct iTextField: UIViewRepresentable {
         textField.isSecureTextEntry = isSecure
 
         // Managing the Editing Behavior
-        if isEditing.wrappedValue {
-            textField.becomeFirstResponder()
+        DispatchQueue.main.async {
+          if isEditing.wrappedValue {
+              textField.becomeFirstResponder()
+          }
         }
-        
+
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textFieldDidChange(_:)), for: .editingChanged)
         
         return textField
@@ -167,10 +169,12 @@ public struct iTextField: UIViewRepresentable {
             }
         }
 
-        if isEditing.wrappedValue {
-            textField.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
+        DispatchQueue.main.async {
+          if isEditing.wrappedValue {
+              textField.becomeFirstResponder()
+          } else {
+              textField.resignFirstResponder()
+          }
         }
     }
     
